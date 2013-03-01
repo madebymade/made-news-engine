@@ -1,0 +1,20 @@
+module News
+  class Item < ActiveRecord::Base
+    self.table_name = "news_items"
+
+    attr_accessible                 :text, :title, :lead_image, :related_links_attributes, :sticky
+
+    has_many                        :related_links
+
+    accepts_nested_attributes_for   :related_links
+
+    has_attached_file               :lead_image, :styles => {
+                                        :sticky => "200x200#",
+                                        :regular => "100x100#"
+                                    }
+
+    validates_presence_of           :title
+    validates_presence_of           :text
+    validates_presence_of           :lead_image
+  end
+end
