@@ -37,9 +37,7 @@ if defined?(ActiveAdmin)
         end
       end
 
-      f.buttons
+      f.actions
     end
-    
   end
-
 end
