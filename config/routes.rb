@@ -1,6 +1,8 @@
-News::Engine.routes.draw do
-  resources :related_links
-  resources :items
+if News.config.engine_routing
+  News::Engine.routes.draw do
+    root                          :to => 'news#index',              :as => 'news'
 
-  root :to => "news#index"
+    match '/tag/:url',            :to => 'news#tag',                :as => 'news_tag',         :via => [:get]
+    match '/:url',                :to => 'news#show',               :as => 'news_item',        :via => [:get]
+  end
 end

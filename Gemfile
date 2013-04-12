@@ -3,6 +3,8 @@ gemspec
 
 gem "jquery-rails"
 gem "paperclip",                 '~> 3.0'
+gem 'stringex',                  '~> 1.5.1'
+gem 'kaminari'
 
 group :test do
   gem 'brakeman'

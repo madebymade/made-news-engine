@@ -1,11 +1,11 @@
-if defined?(ActiveAdmin)
+if defined?(ActiveAdmin) and Comment.config.engine_active_admin
+  ActiveAdmin.register News::Item, {:sort_order => :created_at} do
+    controller do
+      cache_sweeper News.config.news_item_sweeper if News.config.news_item_sweeper
+      defaults :finder => :find_by_url
+    end
 
-  ActiveAdmin.register News::Item do
-    # controller do
-    #   cache_sweeper News.config.cache_sweeper if News.config.cache_sweeper
-    # end
-
-    menu :label => 'Manage News Items', :parent => "News"
+    menu :label => 'Story', :parent => "News", :priority => 1
 
     index do
       column :title
@@ -14,7 +14,7 @@ if defined?(ActiveAdmin)
       column :text
       column :lead_image do |news_item|
         unless news_item.lead_image.blank?
-          image_tag news_item.lead_image(:original)
+          image_tag news_item.lead_image(:thumb)
         end
       end
       column :sticky

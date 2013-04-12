@@ -11,31 +11,47 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130205123726) do
+ActiveRecord::Schema.define(:version => 20130412104828) do
 
   create_table "news_items", :force => true do |t|
     t.string   "title"
     t.text     "text"
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
+    t.boolean  "sticky"
+    t.string   "url"
     t.string   "lead_image_file_name"
     t.string   "lead_image_content_type"
     t.integer  "lead_image_file_size"
     t.datetime "lead_image_updated_at"
-    t.boolean  "sticky"
   end
 
   create_table "news_related_links", :force => true do |t|
     t.string   "title"
     t.text     "text"
     t.string   "url"
+    t.integer  "item_id"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.integer  "order",              :default => 9999
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+  end
+
+  create_table "news_tags", :force => true do |t|
+    t.string   "name"
+    t.string   "url"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "news_taxonamies", :force => true do |t|
     t.integer  "item_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.integer  "tag_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

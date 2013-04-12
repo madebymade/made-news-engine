@@ -4,7 +4,7 @@ module News
   describe Item do
     before(:each) do
       @news_item = FactoryGirl.create(:item)
-    end 
+    end
 
     it "has a valid factory" do
       @news_item.should be_valid
@@ -19,7 +19,7 @@ module News
     end
 
     it "is invalid without a lead image" do
-      FactoryGirl.build(:item, lead_image_file_name: nil).should_not be_valid
+      FactoryGirl.build(:item, lead_image: nil).should_not be_valid
     end
 
     it "can't create a related link without a title" do
@@ -35,7 +35,7 @@ module News
     end
 
     it "can't create a related link without an image" do
-      FactoryGirl.build(:related_link, image_file_name: nil).should_not be_valid
+      FactoryGirl.build(:related_link, image: nil).should_not be_valid
     end
   end
 end

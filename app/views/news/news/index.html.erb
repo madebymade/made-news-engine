@@ -1,0 +1,8 @@
+News
+<% @items.each do |item| %>
+  <tr>
+    <td><%= item.title %></td>
+    <td><%= item.text %></td>
+  </tr>
+<% end %>
+<%= paginate @items %>

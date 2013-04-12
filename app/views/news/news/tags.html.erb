@@ -1,0 +1,8 @@
+<%= @tag.name %>
+<% @tag.items.each do |item| %>
+  <tr>
+    <td><%= item.title %></td>
+    <td><%= item.text %></td>
+  </tr>
+<% end %>
+<%= paginate @tag.items %>
