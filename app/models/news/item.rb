@@ -13,7 +13,7 @@ module News
     accepts_nested_attributes_for   :related_links, :allow_destroy => true
 
     has_many                        :taxonomies
-    has_many                        :tag, :through => :taxonomies
+    has_many                        :tags, :through => :taxonomies
     accepts_nested_attributes_for   :taxonomies, :allow_destroy => true
 
     after_destroy                   :remove_associations
@@ -24,7 +24,8 @@ module News
                                     :lead_image,
                                     :related_links_attributes,
                                     :sticky,
-                                    :created_at
+                                    :created_at,
+                                    :tag_ids
 
     has_attached_file               :lead_image, :styles => {
                                         :main => News.config.image_size_main,
@@ -43,7 +44,32 @@ module News
     validates_attachment_presence   :lead_image
 
     def self.paginated(view_page)
-      where('sticky != ?', true).page view_page
+      where('sticky != ?', true).page(view_page).per(News.config.per_page)
+    end
+
+    def self.sticky_post
+      where('sticky = ?', true).first
+    end
+
+    def self.paginated_posts_with_tag(view_page, tag)
+      taxonomies = News::Taxonomy.where(:tag_id => tag.id)
+      item_ids = taxonomies.map {|x| x.item_id}
+      self.where(:id => item_ids).page(view_page).per(News.config.per_page)
+    end
+
+    def self.paginated_posts_archive(view_page, year, month)
+      date = DateTime.strptime("#{month} #{year}", "%B %Y")
+      where("created_at between ? AND ?", date.beginning_of_month, date.end_of_month).page(view_page).per(News.config.per_page)
+    end
+
+    def self.get_items_year_month_hash
+      posts_by_year = self.all.group_by { |post| post.created_at.strftime("%Y") }
+
+      posts_by_year.each do |year, posts|
+        posts_by_year[year] = posts.group_by { |post| post.created_at.strftime("%B") }
+      end
+
+      posts_by_year
     end
 
     def to_param
@@ -72,7 +98,9 @@ module News
 
     private
     def remove_associations
-      New::Taxonomies.destroy_old_associations('item', self.id)
+      unless self.tags.blank?
+        New::Taxonomy.destroy_old_associations('item', self.id)
+      end
     end
   end
 end

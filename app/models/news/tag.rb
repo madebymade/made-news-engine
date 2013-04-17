@@ -10,18 +10,20 @@ module News
     end
 
     has_many                        :taxonomies
-    has_many                        :tag, :through => :taxonomies
+    has_many                        :items, :through => :taxonomies
     accepts_nested_attributes_for   :taxonomies, :allow_destroy => true
 
     after_destroy                   :remove_associations
 
     attr_accessible                 :name,
-                                    :url
+                                    :url,
+                                    :item_ids
+
+    validates_presence_of           :name
 
     acts_as_url                     :name
 
     default_scope                   :order => '`name` ASC'
-
 
     def to_param
       url
@@ -49,7 +51,9 @@ module News
 
     private
     def remove_associations
-      New::Taxonomies.destroy_old_associations('tag', self.id)
+      unless self.items.blank?
+        New::Taxonomy.destroy_old_associations('tag', self.id)
+      end
     end
   end
 end

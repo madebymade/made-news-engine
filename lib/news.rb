@@ -13,6 +13,9 @@ module News
   mattr_accessor :news_tag_sweeper
   @@news_tag_sweeper = false
 
+  mattr_accessor :per_page
+  @@per_page = 4
+
   mattr_accessor :image_size_main
   @@image_size_main = "200x200#"
 

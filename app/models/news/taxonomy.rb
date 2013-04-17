@@ -1,5 +1,5 @@
 module News
-  class Taxonomies < ActiveRecord::Base
+  class Taxonomy < ActiveRecord::Base
 
     attr_accessible               :item_id,
                                   :tag_id
