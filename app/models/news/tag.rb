@@ -20,6 +20,8 @@ module News
                                     :item_ids
 
     validates_presence_of           :name
+    validates_uniqueness_of         :name,
+                                    :url
 
     acts_as_url                     :name
 

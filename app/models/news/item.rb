@@ -25,6 +25,7 @@ module News
                                     :related_links_attributes,
                                     :sticky,
                                     :created_at,
+                                    :updated_at,
                                     :tag_ids
 
     has_attached_file               :lead_image, :styles => {
@@ -38,8 +39,9 @@ module News
     default_scope                   :order => '`created_at` DESC'
 
     validates_presence_of           :title,
-                                    :text,
-                                    :lead_image
+                                    :text
+
+    validates_uniqueness_of         :url
 
     validates_attachment_presence   :lead_image
 
@@ -47,7 +49,7 @@ module News
       where('sticky != ?', true).page(view_page).per(News.config.per_page)
     end
 
-    def self.sticky_post
+    def self.get_sticky_post
       where('sticky = ?', true).first
     end
 
@@ -81,19 +83,27 @@ module News
     end
 
     def get_canonical_url
-      news_item_path(self)
+      news_item_path(self.url)
     end
 
-    def get_parent
-      "News"
+    def get_sitemap_title
+      self.title
+    end
+
+    def get_sitemap_priority
+      "0.8"
     end
 
     def get_change_frequency
       "weekly"
     end
 
-    def get_sitemap_priority
-      "0.8"
+    def get_parent
+      "News"
+    end
+
+    def get_parent_url
+      news_path
     end
 
     private

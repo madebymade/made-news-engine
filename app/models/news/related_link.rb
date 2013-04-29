@@ -8,12 +8,11 @@ module News
                                     :text,
                                     :url,
                                     :image,
-                                    :order
+                                    :order,
+                                    :item_id
 
     has_attached_file               :image,
                                     :styles => {
-                                       :main => News.config.image_size_main,
-                                       :secondary => News.config.image_size_secondary,
                                        :thumb => News.config.image_size_thumb
                                     }
 
