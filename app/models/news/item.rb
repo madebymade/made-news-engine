@@ -109,7 +109,7 @@ module News
     private
     def remove_associations
       unless self.tags.blank?
-        New::Taxonomy.destroy_old_associations('item', self.id)
+        News::Taxonomy.destroy_old_associations('item', self.id)
       end
     end
   end
