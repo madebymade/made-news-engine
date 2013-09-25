@@ -1,4 +1,4 @@
-if defined?(ActiveAdmin) and Comment.config.engine_active_admin
+if defined?(ActiveAdmin) and News.config.engine_active_admin
   ActiveAdmin.register News::Item, {:sort_order => :created_at} do
     controller do
       cache_sweeper News.config.news_item_sweeper if News.config.news_item_sweeper
