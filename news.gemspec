@@ -20,12 +20,4 @@ Gem::Specification.new do |s|
   s.add_dependency "paperclip", "~> 3.0"
   s.add_dependency "stringex", "~> 1.5.1"
   s.add_dependency "kaminari"
-
-  s.add_test_dependency "brakeman"
-  s.add_test_dependency "capybara"
-  s.add_test_dependency "database_cleaner"
-  s.add_test_dependency "factory_girl"
-  s.add_test_dependency "rspec-rails"
-  s.add_test_dependency "sqlite3"
-  s.add_test_dependency "webmock"
 end
