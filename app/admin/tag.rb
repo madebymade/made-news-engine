@@ -1,4 +1,4 @@
-if defined?(ActiveAdmin) and Product.config.engine_active_admin
+if defined?(ActiveAdmin) and News.config.engine_active_admin
   ActiveAdmin.register News::Tag do
 
     filter :name
@@ -7,7 +7,7 @@ if defined?(ActiveAdmin) and Product.config.engine_active_admin
     menu :label => 'Tags', :parent => "News", :priority => 2
 
     action_item :only => :show do
-      link_to "View on site", product_category_path(product_category.url)
+      link_to "View on site", news_item_path(news_item.url)
     end
 
     controller do
