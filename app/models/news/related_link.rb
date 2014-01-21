@@ -11,10 +11,7 @@ module News
                                     :order,
                                     :item_id
 
-    has_attached_file               :image,
-                                    :styles => {
-                                       :thumb => News.config.image_size_thumb
-                                    }
+    has_attached_file               :image, :styles => News.config.image_styles
 
     validates_attachment_presence   :image
 
