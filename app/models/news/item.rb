@@ -28,7 +28,8 @@ module News
                                     :sticky,
                                     :created_at,
                                     :updated_at,
-                                    :tag_ids
+                                    :tag_ids,
+                                    :author_id
 
     has_attached_file               :lead_image, :styles => News.config.image_styles
 
