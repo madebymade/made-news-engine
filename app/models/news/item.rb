@@ -9,6 +9,8 @@ module News
       include Rails.application.routes.url_helpers
     end
 
+    belongs_to                      :author
+
     has_many                        :related_links
     accepts_nested_attributes_for   :related_links, :allow_destroy => true
 
@@ -28,11 +30,7 @@ module News
                                     :updated_at,
                                     :tag_ids
 
-    has_attached_file               :lead_image, :styles => {
-                                        :main => News.config.image_size_main,
-                                        :secondary => News.config.image_size_secondary,
-                                        :thumb => News.config.image_size_thumb
-                                    }
+    has_attached_file               :lead_image, :styles => News.config.image_styles
 
     acts_as_url                     :title
 

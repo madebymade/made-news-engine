@@ -18,6 +18,7 @@ if defined?(ActiveAdmin) and News.config.engine_active_admin
         end
       end
       column :sticky
+      column :author
 
       default_actions
     end
@@ -27,6 +28,8 @@ if defined?(ActiveAdmin) and News.config.engine_active_admin
         f.input :title
         f.input :text
         f.input :lead_image, :as => :file
+        f.input :author
+
         f.has_many :related_links do |f_link|
           f_link.inputs do
             f_link.input :title
