@@ -19,8 +19,8 @@ module News
   mattr_accessor :per_page
   @@per_page = 4
 
-  mattr_accessor :image_sizes
-  @@image_sizes = {
+  mattr_accessor :image_styles
+  @@image_styles = {
       :main => "200x200#",
       :secondary => "100x100#",
       :thumb => "70x70#"
