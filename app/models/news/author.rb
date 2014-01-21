@@ -6,7 +6,7 @@ module News
 
     has_many :items
 
-    attr_accessible :avatar, :bio, :name, :twitter, :url
+    attr_accessible :avatar, :bio, :name, :role, :twitter, :url
 
     has_attached_file :avatar, :styles => News.config.image_styles
 
