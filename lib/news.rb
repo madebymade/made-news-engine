@@ -7,6 +7,9 @@ module News
   mattr_accessor :engine_active_admin
   @@engine_active_admin = true
 
+  mattr_accessor :news_author_sweeper
+  @@news_author_sweeper = false
+
   mattr_accessor :news_item_sweeper
   @@news_item_sweeper = false
 
@@ -16,14 +19,12 @@ module News
   mattr_accessor :per_page
   @@per_page = 4
 
-  mattr_accessor :image_size_main
-  @@image_size_main = "200x200#"
-
-  mattr_accessor :image_size_secondary
-  @@image_size_secondary = "100x100#"
-
-  mattr_accessor :image_size_thumb
-  @@image_size_thumb = "70x70#"
+  mattr_accessor :image_sizes
+  @@image_sizes = {
+      :main => "200x200#",
+      :secondary => "100x100#",
+      :thumb => "70x70#"
+    }
 
   class Engine < Rails::Engine
     isolate_namespace News
