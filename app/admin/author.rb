@@ -10,13 +10,13 @@ if defined?(ActiveAdmin) and News.config.engine_active_admin
     menu :label => 'Authors', :parent => "News", :priority => 3
 
     index do
-      column :name
-      column :bio
-      column :avatar do |news_item|
+      column :avatar do |news_author|
         unless news_author.avatar.blank?
           image_tag news_author.avatar(:thumb)
         end
       end
+      column :name
+      column :bio
 
       default_actions
     end
@@ -27,6 +27,8 @@ if defined?(ActiveAdmin) and News.config.engine_active_admin
         f.input :bio
         f.input :avatar
         f.input :twitter
+        t.input :google_plus_url,
+          :hint => "e.g. https://plus.google.com/115369062315673853712/posts"
       end
 
       f.actions
