@@ -29,7 +29,8 @@ module News
                                     :created_at,
                                     :updated_at,
                                     :tag_ids,
-                                    :author_id
+                                    :author_id,
+                                    :published
 
     has_attached_file               :lead_image, :styles => News.config.image_styles
 
@@ -45,11 +46,11 @@ module News
     validates_attachment_presence   :lead_image
 
     def self.paginated(view_page)
-      where('sticky != ?', true).page(view_page).per(News.config.per_page)
+      where('sticky != ? AND published = ?', true, true).page(view_page).per(News.config.per_page)
     end
 
     def self.get_sticky_post
-      where('sticky = ?', true).first
+      where('sticky = ? AND published = ?', true, true).first
     end
 
     def self.paginated_posts_with_tag(view_page, tag)

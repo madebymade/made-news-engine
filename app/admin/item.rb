@@ -11,13 +11,22 @@ if defined?(ActiveAdmin) and News.config.engine_active_admin
       column :title
       column :created_at
       column :updated_at
-      column :text
+      column :text do |news_item|
+        news_item.text[0, 100]
+      end
       column :lead_image do |news_item|
         unless news_item.lead_image.blank?
           image_tag news_item.lead_image(:thumb)
         end
       end
       column :sticky
+      column :published do |news_item|
+        if news_item.published
+          "Yes"
+        else
+          "No"
+        end
+      end
       column :author
 
       default_actions
@@ -29,6 +38,7 @@ if defined?(ActiveAdmin) and News.config.engine_active_admin
         f.input :text
         f.input :lead_image, :as => :file
         f.input :author
+        f.input :published
 
         f.has_many :related_links do |f_link|
           f_link.inputs do

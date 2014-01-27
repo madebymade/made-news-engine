@@ -7,7 +7,11 @@ module News
     end
 
     def show
-      @item = Item.find_by_url!(params[:url])
+      if params[:preview] and params[:preview] == News.config.preview_token
+        @item = Item.find_by_url!(params[:url])
+      else
+        @item = Item.find_by_url_and_published!(params[:url], true)
+      end
     end
 
     def tag

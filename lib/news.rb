@@ -19,6 +19,9 @@ module News
   mattr_accessor :per_page
   @@per_page = 4
 
+  mattr_accessor :preview_token
+  @@preview_token = 'prev13w'
+
   mattr_accessor :image_styles
   @@image_styles = {
       :main => "200x200#",
