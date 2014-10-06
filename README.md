@@ -18,9 +18,9 @@ Configure the News engine with an initializer named `news.rb`
 
 ##Credits
 
-Developed and maintained by [Made](http://www.madebymade.co.uk).
+Developed and maintained by [Made](http://www.madetech.co.uk?ref=github&repo=news_engine).
 
-[![made](https://s3-eu-west-1.amazonaws.com/made-assets/googleapps/google-apps.png)](http://www.madebymade.co.uk/)
+[![made](https://s3-eu-west-1.amazonaws.com/made-assets/googleapps/google-apps.png)](http://www.madetech.co.uk?ref=github&repo=news_engine)
 
 Key contributions:
 
