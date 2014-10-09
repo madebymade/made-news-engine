@@ -12,11 +12,9 @@ module News
 
     acts_as_url :full_name
 
-    validates_presence_of :bio, :first_name, :surname
+    validates_presence_of :first_name
 
     validates_uniqueness_of :url
-
-    validates_attachment_presence :avatar
 
     def full_name
       "#{self.first_name} #{self.surname}"
