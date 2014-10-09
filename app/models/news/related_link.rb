@@ -16,7 +16,6 @@ module News
     validates_attachment_presence   :image
 
     validates_presence_of           :title,
-                                    :text,
                                     :url,
                                     :image,
                                     :order
