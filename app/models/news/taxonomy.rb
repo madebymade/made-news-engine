@@ -1,18 +1,16 @@
 module News
   class Taxonomy < ActiveRecord::Base
+    belongs_to :case_study, :class_name => 'News::Item'
+    belongs_to :taxonomable, polymorphic: true
 
-    attr_accessible               :item_id,
-                                  :tag_id
+    attr_accessible :order, :news_item_id
 
-    belongs_to                    :item
-    belongs_to                    :tag
+    validates :news_item_id, :presence => true, :uniqueness => { :scope => [:taxonomable_id, :taxonomable_type] }
 
-    def to_s
-      self.tag
-    end
+    default_scope :order => '`news_taxonomies`.`order` ASC'
 
-    def self.destroy_old_associations(field, id)
-      where("#{field}_id = ?", id).destroy_all
-    end
+    scope :to_categories, -> { where arel_table[:taxonomable_type].eq('News::Category') }
+    scope :to_news_items, -> { where arel_table[:news_item_id].not_eq(nil) }
+    scope :to_tags, -> { where arel_table[:taxonomable_type].eq('News::Tag') }
   end
 end

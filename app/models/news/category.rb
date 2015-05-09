@@ -2,12 +2,12 @@ require News::Engine.root.join('app', 'models', 'news', 'concerns', 'taxonomable
 require 'stringex'
 
 module News
-  class Tag < ActiveRecord::Base
+  class Category < ActiveRecord::Base
     include News::Concerns::Taxonomable
 
-    attr_accessible :name, :order
+    attr_accessible :name, :order, :url
 
-    default_scope :order => '`news_tags`.`order` ASC'
+    default_scope :order => '`news_categories`.`order` ASC'
 
     acts_as_url :name
 

@@ -14,9 +14,14 @@ module News
     has_many                        :related_links
     accepts_nested_attributes_for   :related_links, :allow_destroy => true
 
-    has_many                        :taxonomies
-    has_many                        :tags, :through => :taxonomies
-    accepts_nested_attributes_for   :taxonomies, :allow_destroy => true
+    has_many :categories, :through => :taxonomies, :class_name => 'News::Category',
+      :source => 'taxonomable', :source_type => 'News::Category'
+
+    has_many :tags, :through => :taxonomies, :class_name => 'News::Tag',
+      :source => 'taxonomable', :source_type => 'News::Tag'
+
+    has_many :taxonomies, :class_name => 'News::Taxonomy', :dependent => :destroy,
+      :foreign_key => 'news_item_id'
 
     after_destroy                   :remove_associations
 
@@ -30,7 +35,9 @@ module News
                                     :updated_at,
                                     :tag_ids,
                                     :author_id,
-                                    :published
+                                    :published,
+                                    :category_ids,
+                                    :tag_ids
 
     has_attached_file               :lead_image, :styles => News.config.image_styles
 
@@ -53,10 +60,18 @@ module News
       where('sticky = ? AND published = ?', true, true).first
     end
 
-    def self.paginated_posts_with_tag(view_page, tag)
-      taxonomies = News::Taxonomy.where(:tag_id => tag.id)
-      item_ids = taxonomies.map {|x| x.item_id}
-      self.where(:id => item_ids).page(view_page).per(News.config.per_page)
+    def self.paginated_posts_with_tag(view_page, tag, per_page=News.config.per_page)
+      taxonomies = News::Taxonomy.where( taxonomable_id: tag.try(:id),
+                                         taxonomable_type: News::Tag )
+      item_ids = taxonomies.map { |x| x.news_item_id }
+      self.where(:id => item_ids).page(view_page).per(per_page)
+    end
+
+    def self.paginated_posts_with_category(view_page, category, per_page=News.config.per_page)
+      taxonomies = News::Taxonomy.where( taxonomable_id: category.try(:id),
+                                         taxonomable_type: News::Category )
+      item_ids = taxonomies.map { |x| x.news_item_id }
+      self.where(:id => item_ids).page(view_page).per(per_page)
     end
 
     def self.paginated_posts_archive(view_page, year, month)
