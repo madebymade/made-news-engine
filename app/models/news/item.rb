@@ -50,7 +50,7 @@ module News
 
     validates_uniqueness_of         :url
 
-    validates_attachment_presence   :lead_image
+    validates_attachment_presence   :lead_image, if: require_lead_image?
 
     def self.paginated(view_page)
       where('sticky != ? AND published = ?', true, true).page(view_page).per(News.config.per_page)
@@ -95,6 +95,10 @@ module News
 
     def to_s
       title
+    end
+
+    def require_lead_image?
+      true
     end
 
     def get_canonical_url
