@@ -39,6 +39,8 @@ module News
                                     :category_ids,
                                     :tag_ids
 
+    attr_reader                     :require_lead_image?
+
     has_attached_file               :lead_image, :styles => News.config.image_styles
 
     acts_as_url                     :title
