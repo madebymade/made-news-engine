@@ -39,8 +39,6 @@ module News
                                     :category_ids,
                                     :tag_ids
 
-    attr_reader                     :require_lead_image?
-
     has_attached_file               :lead_image, :styles => News.config.image_styles
 
     acts_as_url                     :title
@@ -52,7 +50,7 @@ module News
 
     validates_uniqueness_of         :url
 
-    validates_attachment_presence   :lead_image, if: require_lead_image?
+    validates_attachment_presence   :lead_image, if: :require_lead_image?
 
     def self.paginated(view_page)
       where('sticky != ? AND published = ?', true, true).page(view_page).per(News.config.per_page)
@@ -99,10 +97,6 @@ module News
       title
     end
 
-    def require_lead_image?
-      true
-    end
-
     def get_canonical_url
       news_item_path(self.url)
     end
@@ -132,6 +126,10 @@ module News
       unless self.tags.blank?
         News::Taxonomy.destroy_old_associations('item', self.id)
       end
+    end
+    
+    def require_lead_image?
+      true
     end
   end
 end
