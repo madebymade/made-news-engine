@@ -5,7 +5,7 @@ module News
   class Tag < ActiveRecord::Base
     include News::Concerns::Taxonomable
 
-    attr_accessible :name, :order
+    attr_accessible :name, :order, :intro_title, :intro_description
 
     default_scope :order => '`news_tags`.`order` ASC'
 
