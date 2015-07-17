@@ -18,7 +18,13 @@ if defined?(ActiveAdmin) and News.config.engine_active_admin
     form do |f|
       f.inputs "Tag" do
         f.input     :name,
-                    :label => 'Tag name'
+                    :label => 'Name'
+
+        f.input     :intro_title,
+                    :label => 'Introduction Title'
+
+        f.input     :intro_description,
+                    :label => 'Introduction Description'
 
         f.input     :order
       end
