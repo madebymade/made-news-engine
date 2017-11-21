@@ -18,6 +18,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 3.2.11"
   s.add_dependency "paperclip", "~> 3.0"
-  s.add_dependency "stringex", "~> 1.5.1"
+  s.add_dependency "stringex", ">= 1.5.1", "< 2.8.0"
   s.add_dependency "kaminari"
 end
