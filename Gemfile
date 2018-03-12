@@ -2,7 +2,7 @@ source "http://rubygems.org"
 gemspec
 
 gem "jquery-rails"
-gem "paperclip",                 '~> 3.0'
+gem "paperclip",                 '~> 4.3'
 gem 'stringex',                  '~> 1.5.1'
 gem 'kaminari'
 
